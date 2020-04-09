@@ -1,0 +1,12 @@
+/* purgecss start ignore */
+@tailwind base;
+@tailwind components;
+/* purgecss end ignore */
+
+html,
+body,
+#app {
+  @apply h-full;
+}
+
+@tailwind utilities;

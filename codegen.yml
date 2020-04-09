@@ -1,0 +1,6 @@
+overwrite: true
+schema: "https://swapi.apis.guru/"
+generates:
+  src/generated/schema.ts:
+    plugins:
+      - "typescript"
