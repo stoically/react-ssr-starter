@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export function apolloClient(
+export function apollo(
   {
     fetch,
     ssrMode,
@@ -20,6 +20,7 @@ export function apolloClient(
 ): ApolloClient<NormalizedCacheObject> {
   const cache = new InMemoryCache();
   if (typeof window !== "undefined" && window.__APOLLO_STATE__) {
+    // https://www.apollographql.com/docs/react/performance/server-side-rendering/#store-rehydration
     cache.restore(window.__APOLLO_STATE__);
   }
 

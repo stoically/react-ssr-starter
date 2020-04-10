@@ -10,14 +10,17 @@ import { Request, Response } from "express";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { getDataFromTree } from "@apollo/react-ssr";
 
-import { apolloClient } from "../apollo";
+import { apollo } from "../client/apollo";
 import { App } from "../client/components/App";
 
 const templatePath = path.join(__dirname, "..", "client", "index.html");
 const HTML_TEMPLATE = fs.readFileSync(templatePath).toString();
 
 export default async (req: Request, res: Response): Promise<void> => {
-  const client = apolloClient({ fetch, ssrMode: true });
+  // https://www.apollographql.com/docs/react/performance/server-side-rendering/#server-side-rendering
+  const client = apollo({ fetch, ssrMode: true });
+
+  // https://reacttraining.com/react-router/web/guides/server-rendering
   const context: StaticRouterContext = {};
   const router = (
     <StaticRouter location={req.originalUrl} context={context}>
@@ -27,20 +30,23 @@ export default async (req: Request, res: Response): Promise<void> => {
     </StaticRouter>
   );
 
+  // https://www.apollographql.com/docs/react/performance/server-side-rendering/#using-getdatafromtree
   await getDataFromTree(router);
-  const markup = ReactDOM.renderToString(router);
-  const initialState = client.extract();
+
+  // https://reactjs.org/docs/react-dom-server.html#rendertostring
+  const html = ReactDOM.renderToString(router);
 
   if (context.url) {
     res.redirect(301, context.url);
   } else {
     const $ = cheerio.load(HTML_TEMPLATE);
-    $("#app").html(markup);
+    $("#app").html(html);
+
+    // https://www.apollographql.com/docs/react/performance/server-side-rendering/#store-rehydration
     $("head").append(
-      `<script>window.__APOLLO_STATE__= ${JSON.stringify(initialState).replace(
-        /</g,
-        "\\u003c"
-      )};</script>`
+      `<script>window.__APOLLO_STATE__= ${JSON.stringify(
+        client.extract()
+      ).replace(/</g, "\\u003c")};</script>`
     );
 
     res.send($.html());
