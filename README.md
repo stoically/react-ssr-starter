@@ -16,13 +16,17 @@
 
 ## Prerequisite
 
-```
+```shell
 npm install
+
+# GraphQL Endpoint Fake
+# Change in `src/client/apollo.ts` and `codegen.yml`
+npx graphql-faker 
 ```
 
 ## Dev
 
-```
+```shell
 npm run dev
 ```
 
@@ -32,7 +36,7 @@ npm run dev
 
 ## Build & Start
 
-```
+```shell
 npm run generate
 npm run build
 npm start
@@ -41,6 +45,12 @@ npm start
 - http://localhost:1234
 - SSR
 - No HMR
+
+## Troubleshooting
+
+#### Error: Cannot use GraphQLSchema "[object GraphQLSchema]" from another module or realm.
+
+- Make sure `@graphql-codegen/cli` and/or `graphql` isn't installed globally. See [here for details](https://github.com/dotansimha/graphql-code-generator/issues/3660)
 
 ## License
 

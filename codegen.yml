@@ -1,5 +1,5 @@
 overwrite: true
-schema: "https://swapi.apis.guru/"
+schema: "http://localhost:9002/graphql"
 generates:
   src/generated/schema.ts:
     plugins:

@@ -17,7 +17,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: |
+      - name: build
+        run: |
+          npx graphql-faker &
           npm install
           npm run generate
           npm run lint

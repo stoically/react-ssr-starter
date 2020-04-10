@@ -25,7 +25,7 @@ export function apollo(
   }
 
   const link = new HttpLink({
-    uri: "https://swapi.apis.guru/",
+    uri: "http://localhost:9002/graphql",
     credentials: "same-origin",
     headers,
     fetch,
