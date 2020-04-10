@@ -13,6 +13,23 @@
 - Code formatter: [Prettier](https://prettier.io/)
 - Bundler: [Parcel](https://parceljs.org/)
 
+## SSR Functionality
+
+#### React
+
+- Server: [`src/server/ssr.tsx#L36`](https://github.com/stoically/react-ssr-starter/blob/master/src/server/ssr.tsx#L36)
+- Client: [`src/client/index.tsx#L19`](https://github.com/stoically/react-ssr-starter/blob/master/src/client/index.tsx#L19)
+
+#### React Router
+
+- Server: [`src/server/ssr.tsx#L23`](https://github.com/stoically/react-ssr-starter/blob/master/src/server/ssr.tsx#L23)
+- Client: [`src/client/index.tsx#L11`](https://github.com/stoically/react-ssr-starter/blob/master/src/client/index.tsx#L11)
+
+#### Apollo Client (React)
+
+- Server: [`src/server/ssr.tsx#L20`](https://github.com/stoically/react-ssr-starter/blob/master/src/server/ssr.tsx#L20)
+- Client: [`src/client/apollo.ts#L23`](https://github.com/stoically/react-ssr-starter/blob/master/src/client/apollo.ts#L23)
+
 
 ## Prerequisite
 
