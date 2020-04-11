@@ -3,16 +3,34 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "run-p dev:*",
-    "dev:parcel": "parcel src/client/index.html -d dist/dev",
+    "dev:parcel": "parcel src/client/index.html",
     "dev:graphql-codegen": "graphql-codegen --watch",
-    "build": "run-p build:*",
-    "build:client": "parcel build src/client/index.html -d dist/client --public-url /bundle",
-    "build:server": "parcel build src/server/index.ts -d dist/server --public-url /bundle --target=node",
+    "build": "run-s build:*",
+    "build:client": "parcel build src/client/index.html --dist-dir dist/client --target client",
+    "build:server": "parcel build src/server/index.ts --dist-dir dist/server --target server",
     "generate": "graphql-codegen",
     "start": "node dist/server",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint 'src/**/*.{ts,tsx}'",
     "lint:tsc": "tsc"
+  },
+  "targets": {
+    "client": {
+      "context": "browser",
+      "publicUrl": "/bundle",
+      "engines": {
+        "browsers": [
+          "defaults"
+        ]
+      }
+    },
+    "server": {
+      "context": "node",
+      "publicUrl": "/bundle",
+      "engines": {
+        "node": ">= 12.6"
+      }
+    }
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.4",
@@ -49,15 +67,12 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
     "npm-run-all": "^4.1.5",
-    "parcel": "^1.12.4",
+    "parcel": "^2.0.0-nightly.208",
     "prettier": "^2.0.4",
     "tailwindcss": "^1.2.0",
     "typescript": "^3.8.3"
   },
   "prettier": {
     "trailingComma": "es5"
-  },
-  "browserslist": [
-    "defaults"
-  ]
+  }
 }
